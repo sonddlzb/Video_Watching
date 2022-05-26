@@ -9,7 +9,7 @@ import UIKit
 
 protocol FooterTabBarDelegate: AnyObject
 {
-    func footerTabBar(_ footerView: UIView)
+    func footerTabBarDidSelectItem(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath)
 }
 
 class FooterTabBar: UIView {
@@ -59,6 +59,6 @@ extension FooterTabBar: UICollectionViewDelegate, UICollectionViewDataSource, UI
         return CGSize(width: 61, height: self.bounds.height)
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        delegate?.footerTabBar(self)
+        delegate?.footerTabBarDidSelectItem(self.tabBarCollectionView, didSelectItemAt: indexPath)
     }
 }

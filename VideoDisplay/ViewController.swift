@@ -14,6 +14,7 @@ class ViewController: UIViewController {
     @IBOutlet private weak var backButton: UIButton!
     @IBOutlet private weak var videoImageView: UIImageView!
     private weak var footerTabBar: FooterTabBar!
+    private weak var adjustView: AdjustView!
     private var video: PHAsset!
     
     func onModeFullScreen()
@@ -65,6 +66,27 @@ class ViewController: UIViewController {
         }
     }
     
+    func createAdjustView()
+    {
+        if let adjustView = Bundle.main.loadNibNamed("AdjustView", owner: self, options: nil)?.first as? AdjustView
+        {
+            self.adjustView = adjustView
+        }
+    }
+    
+    func adjustViewAppear()
+    {
+        footerTabBar.animHide()
+        self.view.addSubview(adjustView)
+        adjustView.backgroundColor = .clear
+        //adjustView.delegate = self
+        adjustView.translatesAutoresizingMaskIntoConstraints = false
+        adjustView.topAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -139).isActive = true
+        footerTabBar.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
+        footerTabBar.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
+        footerTabBar.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
+        adjustView.animShow()
+    }
     func initBasicGUI()
     {
         saveButton.backgroundColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0.29)
@@ -98,8 +120,12 @@ class ViewController: UIViewController {
 // MARK: FooterTabBarDelegate
 extension ViewController: FooterTabBarDelegate
 {
-    func footerTabBar(_ footerView: UIView) {
-        showAlert()
+    func footerTabBarDidSelectItem(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        switch indexPath.row
+        {
+            case 11: adjustViewAppear()
+            default: showAlert()
+        }
     }
     
     
