@@ -30,18 +30,6 @@ class FooterTabBar: UIView {
         tabBarCollectionView.delegate = self
         tabBarCollectionView.dataSource = self
     }
-    
-    func changeToFullScreenMode()
-    {
-        tabBarCollectionView.backgroundColor = .clear
-        self.backgroundColor = .clear
-    }
-    
-    func changeToFitScreenMode()
-    {
-        tabBarCollectionView.backgroundColor = .black
-        self.backgroundColor = .black
-    }
 }
 extension FooterTabBar: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout
 {
